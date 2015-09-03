@@ -24,12 +24,8 @@ repositories {
 }
 
 group = 'com.squidshoe'
-//name = 'mfl-core'
 version = '1.0.0'
 jar.archiveName = "mfl-core.jar"
-
-Properties props = new Properties()
-props.load(new FileInputStream("local.properties"))
 
 dependencies {
 
