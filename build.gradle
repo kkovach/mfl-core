@@ -50,10 +50,13 @@ publishing {
     }
 }
 
+def user = hasProperty('bintray_username') ? bintray_username : System.getenv('bintray_username')
+def key = hasProperty('bintray_api_key') ? bintray_api_key : System.getenv('bintray_api_key')
+
 bintray {
 
-    user = bintray_username
-    key = bintray_api_key
+    user = user
+    key = key
 
     publications = ['mavenJava']
 
