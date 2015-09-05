@@ -24,7 +24,7 @@ repositories {
 }
 
 group = 'com.squidshoe'
-version = '1.0.0'
+version = '1.0.1'
 jar.archiveName = "mfl-core.jar"
 
 dependencies {
