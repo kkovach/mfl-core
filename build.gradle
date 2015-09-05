@@ -24,7 +24,7 @@ repositories {
 }
 
 group = 'com.squidshoe'
-version = '1.0.0'
+version = '1.0.1'
 jar.archiveName = "mfl-core.jar"
 
 dependencies {
@@ -39,13 +39,27 @@ dependencies {
     testCompile (group: 'junit', name: 'junit', version: '4.12')
 }
 
+task sourceJar (type : Jar) {
+
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 publishing {
+
     publications {
+
         mavenJava(MavenPublication) {
             from components.java
             groupId 'com.squidshoe'
             artifactId 'mfl-core'
             version project.version
+        }
+
+        mavenJavaSrc(MavenPublication) {
+            artifact (sourceJar) {
+                classifier = 'sources'
+            }
         }
     }
 }
@@ -59,7 +73,7 @@ bintray {
     user = bintrayUsername
     key = bintrayApiKey
 
-    publications = ['mavenJava']
+    publications = ['mavenJava', 'mavenJavaSrc']
 
     dryRun = false
     publish = false

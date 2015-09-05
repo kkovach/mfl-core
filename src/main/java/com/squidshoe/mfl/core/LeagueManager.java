@@ -36,17 +36,17 @@ public class LeagueManager {
         mId = id;
     }
 
-    Observable<List<League>> search(String searchString) {
+    public Observable<List<League>> search(String searchString) {
 
         return mflService.leagueSearch(Constants.LEAGUE_SEARCH, mYear, searchString, Constants.JSON_ENABLED);
     }
 
-    Observable<League> get() {
+    public Observable<League> get() {
 
         return mflService.getLeague(Constants.LEAGUE_GET, mYear, mId, Constants.JSON_ENABLED);
     }
 
-    Observable<LeagueStandings> standings() {
+    public Observable<LeagueStandings> standings() {
 
         return mflService.getStandings(Constants.LEAGUE_STANDINGS, mYear, mId, Constants.JSON_ENABLED);
     }
