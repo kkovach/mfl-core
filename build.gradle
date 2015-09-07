@@ -1,5 +1,5 @@
 
-defaultTasks 'clean', 'assemble', 'check'
+defaultTasks 'clean', 'assemble', 'check', 'jacocoTestReport'
 
 buildscript {
 
@@ -28,7 +28,7 @@ repositories {
 }
 
 group = 'com.squidshoe'
-version = '1.0.3'
+version = '1.0.4'
 jar.archiveName = "mfl-core.jar"
 
 dependencies {
