@@ -17,14 +17,14 @@ import java.util.List;
 /**
  * Created by kkovach on 8/24/15.
  */
-public class LeagueSearchAdapter extends TypeAdapter<List<League>> {
+public class LeagueListAdapter extends TypeAdapter<List<League>> {
 
-    private static final String TAG = "LeagueSearchAdapter";
+    private static final String TAG = "LeagueListAdapter";
 
     private TypeAdapter<List<League>> mDelegate;
     private Gson mGson;
 
-    public LeagueSearchAdapter(TypeAdapter<List<League>> delegate) {
+    public LeagueListAdapter(TypeAdapter<List<League>> delegate) {
 
         this.mDelegate = delegate;
 

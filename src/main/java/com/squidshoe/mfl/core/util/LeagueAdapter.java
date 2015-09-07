@@ -7,11 +7,15 @@ import com.google.gson.stream.JsonWriter;
 import com.squidshoe.mfl.core.model.League;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by kkovach on 4/2/15.
  */
 public class LeagueAdapter extends TypeAdapter<League> {
+
+    private final static Logger LOGGER = Logger.getLogger(LeagueAdapter.class.getName());
 
     private TypeAdapter<League> mDelegate;
 
@@ -44,6 +48,7 @@ public class LeagueAdapter extends TypeAdapter<League> {
 
             if (name.equals(League.LEAGUE)) {
 
+                LOGGER.log(Level.INFO, "Delegating for League object...");
                 league = mDelegate.read(reader);
 
             } else if (name.equals(League.VERSION)) {
