@@ -24,7 +24,7 @@ repositories {
 }
 
 group = 'com.squidshoe'
-version = '1.0.1'
+version = '1.0.2'
 jar.archiveName = "mfl-core.jar"
 
 dependencies {
@@ -76,7 +76,7 @@ bintray {
     publications = ['mavenJava', 'mavenJavaSrc']
 
     dryRun = false
-    publish = false
+    publish = true
 
     pkg {
 
