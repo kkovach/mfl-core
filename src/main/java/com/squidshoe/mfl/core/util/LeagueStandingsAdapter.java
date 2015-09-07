@@ -1,10 +1,13 @@
-package com.squidshoe.mfl.core.model;
+package com.squidshoe.mfl.core.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+
+import com.squidshoe.mfl.core.model.Franchise;
+import com.squidshoe.mfl.core.model.LeagueStandings;
 
 import java.io.IOException;
 import java.util.ArrayList;
