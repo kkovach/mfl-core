@@ -7,6 +7,9 @@ import com.google.gson.annotations.Expose;
  */
 public class LeagueHistory {
 
+    public static final String URL = "url";
+    public static final String YEAR = "year";
+
     @Expose
     public String url;
     @Expose

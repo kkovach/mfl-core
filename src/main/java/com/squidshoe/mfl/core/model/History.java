@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class History {
 
+    public static final String LEAGUE = "league";
+
     @Expose
     public List<LeagueHistory> league = new ArrayList<LeagueHistory>();
 }

@@ -5,12 +5,10 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
+import com.squidshoe.mfl.core.model.History;
 import com.squidshoe.mfl.core.model.League;
-import com.squidshoe.mfl.core.model.LeagueAdapter;
 import com.squidshoe.mfl.core.model.LeagueRosters;
-import com.squidshoe.mfl.core.model.LeagueRostersAdapter;
 import com.squidshoe.mfl.core.model.LeagueStandings;
-import com.squidshoe.mfl.core.model.LeagueStandingsAdapter;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -35,6 +33,10 @@ public class MflTypeAdapterFactory implements TypeAdapterFactory {
             } else if (type.getRawType() == League.class) {
 
                 typeAdapter = (TypeAdapter<T>) new LeagueAdapter((TypeAdapter<League>) delegate);
+
+            } else if (type.getRawType() == History.class) {
+
+                typeAdapter = (TypeAdapter<T>) new HistoryAdapter((TypeAdapter<History>) delegate);
 
             } else if (type.getRawType() == List.class) {
 
