@@ -1,7 +1,5 @@
 package com.squidshoe.mfl.core.util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
@@ -18,17 +16,11 @@ import java.util.ArrayList;
  */
 public class HistoryAdapter extends TypeAdapter<History> {
 
-    private static final String TAG = "LeagueAdapter";
-
     private TypeAdapter<History> mDelegate;
-    private Gson mGson;
 
     public HistoryAdapter(TypeAdapter<History> delegate) {
 
         this.mDelegate = delegate;
-
-        mGson = new GsonBuilder().create();
-        nullSafe();
     }
 
     @Override
@@ -39,8 +31,6 @@ public class HistoryAdapter extends TypeAdapter<History> {
 
     @Override
     public History read(JsonReader reader) throws IOException {
-
-        System.out.println("Parsing HISTORY!!!");
 
         History history = new History();
         history.league = new ArrayList<>();
@@ -59,15 +49,12 @@ public class HistoryAdapter extends TypeAdapter<History> {
 
                 if (firstToken == JsonToken.BEGIN_OBJECT) {
 
-                    System.out.println("Begin object!");
-
                     reader.beginObject();
                     curLeagueHistory = new LeagueHistory();
 
                     while (reader.hasNext()) {
 
                         name = reader.nextName();
-                        System.out.println("Name is " + name);
 
                         if (name.equals(LeagueHistory.URL)) {
 
@@ -88,21 +75,16 @@ public class HistoryAdapter extends TypeAdapter<History> {
 
                 } else if (firstToken == JsonToken.BEGIN_ARRAY) {
 
-                    System.out.println("It's an array!!");
-
-                    System.out.println("Begining array");
                     reader.beginArray();
 
                     while (reader.hasNext()) {
 
-                        System.out.println("Begining object");
                         reader.beginObject();
                         curLeagueHistory = new LeagueHistory();
 
                         while (reader.hasNext()) {
 
                             name = reader.nextName();
-                            System.out.println("Name is " + name);
 
                             if (name.equals(LeagueHistory.URL)) {
 
@@ -118,7 +100,6 @@ public class HistoryAdapter extends TypeAdapter<History> {
                             }
                         }
 
-                        System.out.println("Adding 1 to list.");
                         history.league.add(curLeagueHistory);
                         reader.endObject();
                     }

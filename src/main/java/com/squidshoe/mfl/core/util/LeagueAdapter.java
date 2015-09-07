@@ -1,12 +1,9 @@
 package com.squidshoe.mfl.core.util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-import com.squidshoe.mfl.core.model.Franchise;
 import com.squidshoe.mfl.core.model.League;
 
 import java.io.IOException;
@@ -16,10 +13,7 @@ import java.io.IOException;
  */
 public class LeagueAdapter extends TypeAdapter<League> {
 
-    private static final String TAG = "LeagueAdapter";
-
     private TypeAdapter<League> mDelegate;
-    private Gson mGson;
 
     /**
      * <p>
@@ -31,9 +25,6 @@ public class LeagueAdapter extends TypeAdapter<League> {
     public LeagueAdapter(TypeAdapter<League> delegate) {
 
         this.mDelegate = delegate;
-
-        mGson = new GsonBuilder().create();
-        nullSafe();
     }
 
     /**
@@ -44,7 +35,6 @@ public class LeagueAdapter extends TypeAdapter<League> {
 
         League league = new League();
         String name;
-        Franchise[] franchiseArray;
 
         reader.beginObject();
 
@@ -54,7 +44,7 @@ public class LeagueAdapter extends TypeAdapter<League> {
 
             if (name.equals(League.LEAGUE)) {
 
-                league = mGson.fromJson(reader, League.class);
+                league = mDelegate.read(reader);
 
             } else if (name.equals(League.VERSION)) {
 
@@ -62,7 +52,7 @@ public class LeagueAdapter extends TypeAdapter<League> {
 
             } else if (name.equals(League.ENCODING)) {
 
-                league.encoding = mGson.fromJson(reader, String.class);
+                league.encoding = reader.nextString();
 
             } else {
 
