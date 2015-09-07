@@ -4,7 +4,6 @@ import com.squidshoe.mfl.core.model.Franchise;
 import com.squidshoe.mfl.core.model.League;
 import com.squidshoe.mfl.core.model.LeagueStandings;
 import com.squidshoe.mfl.core.model.Player;
-import com.squidshoe.mfl.core.model.Rosters;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public interface MflService {
             @Query("JSON") Integer jsonEnabled);
 
     @GET("/{year}/export")
-    Observable<Rosters> getRosters(@Query("TYPE") String type, @Path("year") Integer year, @Query("L") String leagueId, @Query("JSON") Integer jsonEnabled);
+    Observable<List<Franchise>> getRosters(@Query("TYPE") String type, @Path("year") Integer year, @Query("L") String leagueId, @Query("JSON") Integer jsonEnabled);
 
     @GET("/{year}/export")
     Observable<Player> getPlayer(@Query("TYPE") String type, @Path("year") Integer year, @Query("PLAYERS") String playerList,
