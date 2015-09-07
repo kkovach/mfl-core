@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import rx.Observer;
 
@@ -37,7 +38,10 @@ public class LeagueManagerTest {
         mDefaultYear = 2012;
         mDefaultLeagueId = "35165";
 
-        mLeagueManager = new LeagueManager(mDefaultYear, mDefaultLeagueId);
+//        mDefaultYear = 2015;
+//        mDefaultLeagueId = "63554";
+
+        mLeagueManager = new LeagueManager(mDefaultYear, mDefaultLeagueId, RestAdapter.LogLevel.FULL);
     }
 
     @Test

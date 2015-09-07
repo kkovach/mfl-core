@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import retrofit.RestAdapter;
 import rx.Observable;
 
 /**
@@ -19,9 +20,13 @@ public class LeagueManager {
     private Integer mYear;
     private String mId;
 
-    public LeagueManager(Integer year, String id) {
+    public LeagueManager(Integer year, String id, RestAdapter.LogLevel ll) {
 
-        DaggerMflComponent.builder().build().inject(this);
+        if (ll == null) {
+            DaggerMflComponent.builder().build().inject(this);
+        } else {
+            DaggerMflComponent.builder().networkModule(new NetworkModule(ll)).build().inject(this);
+        }
         mYear = year;
         mId = id;
     }
