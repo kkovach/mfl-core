@@ -3,6 +3,8 @@ package com.squidshoe.mfl.core;
 import com.squidshoe.mfl.core.model.Franchise;
 import com.squidshoe.mfl.core.model.League;
 import com.squidshoe.mfl.core.model.LeagueStandings;
+import com.squidshoe.mfl.core.model.Player;
+import com.squidshoe.mfl.core.util.StringUtils;
 
 import java.util.List;
 
@@ -57,7 +59,7 @@ public class LeagueManager {
         return mflService.getStandings(Constants.LEAGUE_STANDINGS, mYear, mId, Constants.JSON_ENABLED);
     }
 
-    public Observable<Franchise> roster(String franchiseId) {
+    public Observable<List<Player>> roster(String franchiseId) {
 
         return mflService.getRoster(Constants.ROSTER, mYear, mId, franchiseId, Constants.JSON_ENABLED);
     }
@@ -65,5 +67,15 @@ public class LeagueManager {
     public Observable<List<Franchise>> rosters() {
 
         return mflService.getRosters(Constants.ROSTER, mYear, mId, Constants.JSON_ENABLED);
+    }
+
+    public Observable<List<Player>> players() {
+
+        return mflService.getPlayers(Constants.PLAYERS, mYear, null, Constants.DETAILS_ENABLED, Constants.JSON_ENABLED);
+    }
+
+    public Observable<List<Player>> players(List<String> playerIds) {
+
+        return mflService.getPlayers(Constants.PLAYERS, mYear, StringUtils.join(playerIds, ","), Constants.DETAILS_ENABLED, Constants.JSON_ENABLED);
     }
 }

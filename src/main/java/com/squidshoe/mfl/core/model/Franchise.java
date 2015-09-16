@@ -37,6 +37,7 @@ public class Franchise {
 //    public static final String
 
     // League Attributes
+    public String leagueId;
     @Expose
     public String logo;
     @Expose
