@@ -11,5 +11,7 @@ public class Constants {
     public static final String LEAGUE_STANDINGS = "leagueStandings";
     public static final String LEAGUE_GET = "league";
     public static final String ROSTER = "rosters";
+    public static final String PLAYERS = "players";
     public static final Integer JSON_ENABLED = 1;
+    public static final Integer DETAILS_ENABLED = 1;
 }
