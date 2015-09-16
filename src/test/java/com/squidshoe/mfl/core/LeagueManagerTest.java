@@ -1,7 +1,9 @@
 package com.squidshoe.mfl.core;
 
+import com.squidshoe.mfl.core.model.Franchise;
 import com.squidshoe.mfl.core.model.League;
 import com.squidshoe.mfl.core.model.LeagueStandings;
+import com.squidshoe.mfl.core.model.Player;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -24,6 +28,8 @@ import static org.junit.Assert.fail;
  */
 public class LeagueManagerTest {
 
+    private final static Logger LOGGER = Logger.getLogger(LeagueManagerTest.class.getName());
+
     LeagueManager mLeagueManager;
     private List<League> mLeagueSearchResults;
     private League mLeague;
@@ -31,6 +37,9 @@ public class LeagueManagerTest {
 
     private Integer mDefaultYear;
     private String mDefaultLeagueId;
+    private List<Player> mPlayerList;
+    private List<Player> mRoster;
+    private Franchise mFranchise;
 
     @Before
     public void setUp() throws Exception {
@@ -42,6 +51,14 @@ public class LeagueManagerTest {
 //        mDefaultLeagueId = "63554";
 
         mLeagueManager = new LeagueManager(mDefaultYear, mDefaultLeagueId, RestAdapter.LogLevel.FULL);
+    }
+
+    @Test
+    public void noLogging() {
+
+        mLeagueManager = new LeagueManager(mDefaultYear, mDefaultLeagueId, null);
+
+        assertNotNull(mLeagueManager);
     }
 
     @Test
@@ -187,5 +204,95 @@ public class LeagueManagerTest {
         assertThat(mLeagueStandings.franchises.get(0).maxpa, is(358.65));
         assertThat(mLeagueStandings.franchises.get(0).pp, is(5959.50));
 
+    }
+
+    @Test
+    public void players() {
+
+        final CountDownLatch playersLatch = new CountDownLatch(1);
+
+        LOGGER.log(Level.INFO, "Getting players!!");
+
+        mLeagueManager.players().subscribe(new Observer<List<Player>>() {
+
+            @Override
+            public void onCompleted() {
+
+                LOGGER.log(Level.INFO, "Complete!");
+                playersLatch.countDown();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                LOGGER.log(Level.INFO, "Error: " + e.getMessage());
+                playersLatch.countDown();
+            }
+
+            @Override
+            public void onNext(List<Player> players) {
+
+                LOGGER.log(Level.INFO, "Got next player list.");
+                mPlayerList = players;
+                playersLatch.countDown();
+            }
+        });
+
+        try {
+
+            playersLatch.await(30, TimeUnit.SECONDS);
+
+        } catch (InterruptedException e) {
+
+            e.printStackTrace();
+            fail("Search timed out!");
+        }
+
+        assertNotNull(mPlayerList);
+    }
+
+    @Test
+    public void roster() {
+
+        final CountDownLatch rosterLatch = new CountDownLatch(1);
+
+        LOGGER.log(Level.INFO, "Getting roster!!");
+
+        mLeagueManager.roster("0001").subscribe(new Observer<List<Player>>() {
+
+            @Override
+            public void onCompleted() {
+
+                LOGGER.log(Level.INFO, "Complete!");
+                rosterLatch.countDown();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                LOGGER.log(Level.INFO, "Error: " + e.getMessage());
+                rosterLatch.countDown();
+            }
+
+            @Override
+            public void onNext(List<Player> roster) {
+
+                LOGGER.log(Level.INFO, "Got next player list.");
+                mRoster = roster;
+                rosterLatch.countDown();
+            }
+        });
+
+        try {
+
+            rosterLatch.await(30, TimeUnit.SECONDS);
+
+        } catch (InterruptedException e) {
+
+            e.printStackTrace();
+            fail("Search timed out!");
+        }
+
+        assertNotNull(mRoster);
     }
 }
