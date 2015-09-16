@@ -29,7 +29,7 @@ public interface MflService {
             @Query("JSON") Integer jsonEnabled);
 
     @GET("/{year}/export")
-    Observable<Franchise> getRoster(@Query("TYPE") String type, @Path("year") Integer year, @Query("L") String leagueId, @Query("FRANCHISE") String franchiseId,
+    Observable<List<Player>> getRoster(@Query("TYPE") String type, @Path("year") Integer year, @Query("L") String leagueId, @Query("FRANCHISE") String franchiseId,
             @Query("JSON") Integer jsonEnabled);
 
     @GET("/{year}/export")

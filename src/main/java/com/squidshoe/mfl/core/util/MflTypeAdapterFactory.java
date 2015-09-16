@@ -9,14 +9,19 @@ import com.squidshoe.mfl.core.model.Franchise;
 import com.squidshoe.mfl.core.model.History;
 import com.squidshoe.mfl.core.model.League;
 import com.squidshoe.mfl.core.model.LeagueStandings;
+import com.squidshoe.mfl.core.model.Player;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by kkovach on 4/2/15.
  */
 public class MflTypeAdapterFactory implements TypeAdapterFactory {
+
+    private final static Logger LOGGER = Logger.getLogger(MflTypeAdapterFactory.class.getName());
 
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
@@ -47,6 +52,12 @@ public class MflTypeAdapterFactory implements TypeAdapterFactory {
                 } else if(((ParameterizedType) type.getType()).getActualTypeArguments()[0] == Franchise.class) {
 
                     typeAdapter = (TypeAdapter<T>) new FranchiseListAdapter((TypeAdapter<List<Franchise>>) delegate);
+
+                } else if(((ParameterizedType) type.getType()).getActualTypeArguments()[0] == Player.class) {
+
+                    LOGGER.log(Level.INFO, "PlayerListAdapter instantiated.");
+
+                    typeAdapter = (TypeAdapter<T>) new PlayerListAdapter((TypeAdapter<List<Player>>) delegate);
                 }
             }
 

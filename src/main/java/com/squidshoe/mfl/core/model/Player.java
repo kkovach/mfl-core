@@ -9,7 +9,16 @@ import com.google.gson.annotations.SerializedName;
 public class Player {
 
     public static final String ID = "id";
+    public static final String LEAGUE_ID = "leagueId";
+    public static final String FRANCHISE_ID = "franchiseId";
     public static final String NAME = "name";
+    public static final String POSITION = "position";
+    public static final String TEAM = "team";
+    public static final String JERSEY = "jersey";
+    public static final String HEIGHT = "height";
+    public static final String WEIGHT = "weight";
+    public static final String STATUS = "status";
+    public static final String COLLEGE = "college";
     public static final String DRAFT_YEAR = "draft_year";
     public static final String DRAFT_ROUND = "draft_round";
     public static final String DRAFT_PICK = "draft_pick";
@@ -76,7 +85,7 @@ public class Player {
     @Expose
     public String fanballId;
     @Expose
-    public String jersey;
+    public Integer jersey;
     @SerializedName(SPORTSDATA_ID)
     @Expose
     public String sportsdataId;
